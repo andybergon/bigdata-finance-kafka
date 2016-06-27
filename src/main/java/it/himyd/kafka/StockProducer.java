@@ -1,6 +1,5 @@
 package it.himyd.kafka;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -13,19 +12,20 @@ import kafka.producer.KeyedMessage;
 import kafka.producer.ProducerConfig;
 
 public class StockProducer {
-	public static void main(String[] args) throws InterruptedException, FileNotFoundException {
-		// java -cp KafkaProducerSample-0.0.1-SNAPSHOT-jar-with-dependencies.jar TestProducer localhost:9092 stock_topic 100
+	public static void main(String[] args) {
+		// java -cp KafkaProducerSample-0.0.1-SNAPSHOT-jar-with-dependencies.jar
+		// TestProducer localhost:9092 stock_topic 100
 		if (args.length != 3) {
 			System.out.println(
 					"Usage: java -cp KafkaProducerSample-0.0.1-SNAPSHOT-jar-with-dependencies.jar  <kafka-broker> <topics_seperated_by_comma> <request_delay>");
 			System.exit(1);
 		}
 
-		//initializing variables
+		// initializing variables
 		Integer intervalMS = Integer.parseInt(args[2]);
 		String[] topics = args[1].split(",");
 
-		//setting up properties to be used to communicate to kafka
+		// setting up properties to be used to communicate to kafka
 		Properties props = new Properties();
 		props.put("metadata.broker.list", args[0].toString());
 		props.put("serializer.class", "kafka.serializer.StringEncoder");
@@ -50,27 +50,32 @@ public class StockProducer {
 
 				printSentMessage(message);
 			}
-			
-			System.out.println("");
-			Thread.sleep(intervalMS);
 
-			//			Stock stock = getCurrentStock();
-			//			String stockJsonString = stock.toJSONString();
-			//			System.out.println(stockJsonString);	
+			System.out.println("");
+			try {
+				Thread.sleep(intervalMS);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+			// Stock stock = getCurrentStock();
+			// String stockJsonString = stock.toJSONString();
+			// System.out.println(stockJsonString);
 		}
 
-		//			producer.close();
+		// producer.close();
 
 	}
 
 	private static void printSentMessage(KeyedMessage<String, String> message) {
 		String messageString = message.message();
 		System.out.println(message.key());
-		
+
 		Date requestDate = new Date(Long.parseLong(message.key()));
 		String millisDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").format(requestDate);
 		System.out.println(millisDate);
-		
+
 		System.out.println(messageString.substring(0, 50));
 	}
 

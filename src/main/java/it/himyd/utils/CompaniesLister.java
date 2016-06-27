@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CompaniesLister {
-	private static final String CUSTOM_COMPANY_LIST = "/company-lists/stocks.csv";
+	private static final String CUSTOM_COMPANY_LIST = "/company-lists/stocks-eu.csv";
 	private static final String NASDAQ_COMPANY_LIST = "/company-lists/nasdaq-company-list.csv";
 	
 	public List<String> listCompanies() {

@@ -78,8 +78,14 @@ public class YahooFinance {
      * @return                      a {@link Stock} object containing the requested information
      * @throws IOException when there's a connection problem
      */
-    public static Stock get(String symbol, boolean includeHistorical) throws IOException {
-        Map<String, Stock> result = YahooFinance.getQuotes(symbol, includeHistorical);
+    public static Stock get(String symbol, boolean includeHistorical) {
+        Map<String, Stock> result = new HashMap<>();
+		try {
+			result = YahooFinance.getQuotes(symbol, includeHistorical);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
         return result.get(symbol);
     }
     
