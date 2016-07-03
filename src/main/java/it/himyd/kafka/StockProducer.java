@@ -33,13 +33,20 @@ public class StockProducer {
 		ProducerConfig config = new ProducerConfig(props);
 		Producer<String, String> producer = new Producer<String, String>(config);
 
+		CompaniesLister cl = new CompaniesLister();
+		String[] stocksString = cl.listCompaniesArray();
+
 		while (true) {
 			Map<String, Stock> symbol2stock;
 			KeyedMessage<String, String> message;
 			String requestDate;
 			String stockJSON;
 
-			symbol2stock = getStocks();
+			symbol2stock = getStocks(stocksString);
+
+			if (symbol2stock == null) {
+				continue;
+			}
 
 			for (String symbol : symbol2stock.keySet()) {
 				stockJSON = symbol2stock.get(symbol).toJSONString();
@@ -55,13 +62,9 @@ public class StockProducer {
 			try {
 				Thread.sleep(intervalMS);
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 
-			// Stock stock = getCurrentStock();
-			// String stockJsonString = stock.toJSONString();
-			// System.out.println(stockJsonString);
 		}
 
 		// producer.close();
@@ -79,10 +82,8 @@ public class StockProducer {
 		System.out.println(messageString.substring(0, 50));
 	}
 
-	public static Map<String, Stock> getStocks() {
+	public static Map<String, Stock> getStocks(String[] stocksString) {
 		Map<String, Stock> stocks = null;
-		CompaniesLister cl = new CompaniesLister();
-		String[] stocksString = cl.listCompaniesArray();
 
 		try {
 			YahooFinance.logger.setLevel(Level.WARNING);
@@ -94,13 +95,13 @@ public class StockProducer {
 		return stocks;
 	}
 
-	public static Stock getCurrentStock() {
-
+	public static Stock getCurrentStock(String stockString) {
+		// String stockString = "INTC";
 		Stock stock = null;
 
 		try {
 			YahooFinance.logger.setLevel(Level.WARNING);
-			stock = YahooFinance.get("INTC");
+			stock = YahooFinance.get(stockString);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
