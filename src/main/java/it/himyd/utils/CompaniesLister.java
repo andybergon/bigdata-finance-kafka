@@ -10,13 +10,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CompaniesLister {
-	private static final String CUSTOM_COMPANY_LIST = "/company-lists/stocks-eu.csv";
+	private static final String EU_COMPANY_LIST = "/company-lists/stocks-eu.csv";
+	private static final String EU_FTSE100_COMPANY_LIST = "/company-lists/stocks-eu-ftse100.csv";
+	private static final String US_COMPANY_LIST = "/company-lists/stocks-us.csv";
 	private static final String NASDAQ_COMPANY_LIST = "/company-lists/nasdaq-company-list.csv";
-	
+
 	public List<String> listCompanies() {
 		List<String> companies = new ArrayList<String>();
 
-		String csvFile = CUSTOM_COMPANY_LIST;
+		String csvFile = EU_COMPANY_LIST;
 		BufferedReader br = null;
 		String line = "";
 		String cvsSplitBy = ",";
@@ -52,14 +54,13 @@ public class CompaniesLister {
 		return companies;
 
 	}
-	
+
 	public String[] listCompaniesArray() {
 		List<String> companiesList = listCompanies();
 		String[] companies = companiesList.toArray(new String[companiesList.size()]);
 		return companies;
 	}
-	
-	
+
 	public List<String> listNASDAQcompanies() {
 		List<String> companies = new ArrayList<String>();
 
@@ -98,7 +99,7 @@ public class CompaniesLister {
 		return companies;
 
 	}
-	
+
 	public String[] listNASDAQcompaniesArray() {
 		List<String> companiesList = listNASDAQcompanies();
 		String[] companies = companiesList.toArray(new String[companiesList.size()]);
@@ -111,8 +112,8 @@ public class CompaniesLister {
 		System.out.println("companies # " + companies.size());
 		System.out.println(companies.toString());
 
-		//		for (String company : companies) {
-		//			System.out.println(company);
-		//		}
+		// for (String company : companies) {
+		// System.out.println(company);
+		// }
 	}
 }

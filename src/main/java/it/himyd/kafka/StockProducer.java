@@ -12,12 +12,14 @@ import kafka.producer.KeyedMessage;
 import kafka.producer.ProducerConfig;
 
 public class StockProducer {
+	private final static boolean ALSO_HISORICAL = false;
+
 	public static void main(String[] args) {
 		// java -cp KafkaProducerSample-0.0.1-SNAPSHOT-jar-with-dependencies.jar
 		// TestProducer localhost:9092 stock_topic 100
 		if (args.length != 3) {
 			System.out.println(
-					"Usage: java -cp KafkaProducerSample-0.0.1-SNAPSHOT-jar-with-dependencies.jar  <kafka-broker> <topics_seperated_by_comma> <request_delay>");
+					"Usage: java -cp KafkaProducerSample-0.0.1-SNAPSHOT-jar-with-dependencies.jar <kafka-broker> <topics_seperated_by_comma> <request_delay>");
 			System.exit(1);
 		}
 
@@ -87,7 +89,7 @@ public class StockProducer {
 
 		try {
 			YahooFinance.logger.setLevel(Level.WARNING);
-			stocks = YahooFinance.get(stocksString);
+			stocks = YahooFinance.get(stocksString, ALSO_HISORICAL);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -107,6 +109,14 @@ public class StockProducer {
 		}
 
 		return stock;
+	}
+	
+	public static void validateStock(String[] symbols) {
+		for (String symbol : symbols) {
+			System.out.println("checking: " + symbol);
+			getCurrentStock(symbol);
+		}
+		
 	}
 
 }
