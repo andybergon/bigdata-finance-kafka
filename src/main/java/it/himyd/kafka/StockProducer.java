@@ -19,7 +19,7 @@ public class StockProducer {
 		// TestProducer localhost:9092 stock_topic 100
 		if (args.length != 3) {
 			System.out.println(
-					"Usage: java -cp KafkaProducerSample-0.0.1-SNAPSHOT-jar-with-dependencies.jar <kafka-broker> <topics_seperated_by_comma> <request_delay>");
+					"Usage: java -cp KafkaProducerSample-0.0.1-SNAPSHOT-jar-with-dependencies.jar <kafka-broker> <topics_seperated_by_comma> <request_delay_ms>");
 			System.exit(1);
 		}
 
@@ -50,6 +50,8 @@ public class StockProducer {
 				continue;
 			}
 
+			System.out.println(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").format(new Date()));
+
 			for (String symbol : symbol2stock.keySet()) {
 				stockJSON = symbol2stock.get(symbol).toJSONString();
 				requestDate = new Date().getTime() + "";
@@ -75,7 +77,7 @@ public class StockProducer {
 
 	private static void printSentMessage(KeyedMessage<String, String> message) {
 		String messageString = message.message();
-		System.out.println(message.key());
+		// System.out.println(message.key());
 
 		Date requestDate = new Date(Long.parseLong(message.key()));
 		String millisDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").format(requestDate);
@@ -110,13 +112,13 @@ public class StockProducer {
 
 		return stock;
 	}
-	
+
 	public static void validateStock(String[] symbols) {
 		for (String symbol : symbols) {
 			System.out.println("checking: " + symbol);
 			getCurrentStock(symbol);
 		}
-		
+
 	}
 
 }
