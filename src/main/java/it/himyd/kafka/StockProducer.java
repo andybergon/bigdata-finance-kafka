@@ -154,7 +154,6 @@ public class StockProducer {
 	}
 
 	public static Stock getStock(String stockString) {
-		// String stockString = "INTC";
 		Stock stock = null;
 
 		try {
@@ -175,19 +174,22 @@ public class StockProducer {
 
 	}
 
-	/*
-	 * System.out.println("Cleaning array of companies...");
-	 * for (String s : stocks) {
-	 * try {
-	 * Stock stock = YahooFinance.get(s);
-	 * System.out.println("ok: " + s);
-	 * } catch (Exception e) {
-	 * boolean removed = stocks.remove(s);
-	 * if (removed) {
-	 * System.out.println("removed: " + s);
-	 * }
-	 * // e.printStackTrace();
-	 * }
-	 * }
-	 */
+	private void cleanArray(List<String> stocks) {
+		System.out.println("Cleaning array of companies...");
+
+		for (String s : stocks) {
+			try {
+				Stock stock = YahooFinance.get(s);
+				System.out.println("ok: " + stock.getSymbol());
+			} catch (Exception e) {
+				boolean removed = stocks.remove(s);
+				if (removed) {
+					System.out.println("removed: " + s);
+				}
+				// e.printStackTrace();
+			}
+		}
+
+	}
+
 }
