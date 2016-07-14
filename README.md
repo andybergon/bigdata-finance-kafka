@@ -31,22 +31,5 @@ from `target/` folder:
   * you can specify multiple kafka topics seperated by comma and implement your own logic for that topic
 * **request-delay-ms**
   * Number of milliseconds the generator should wait before sending another request
-  
-#### Start Cassandra
-* `cassandra`
-* `cqlsh`
-* `CREATE KEYSPACE IF NOT EXISTS finance WITH replication = {'class': 'SimpleStrategy', 'replication_factor': 1 };`
-* 
-```
-CREATE TABLE IF NOT EXISTS finance.stocks (
-    symbol text,
-    trade_timestamp timestamp,
-    price double,
-    PRIMARY KEY(symbol,trade_timestamp)
-) with clustering order by (trade_timestamp desc);
-```
-* `USE finance;`
-* `SELECT * FROM stocks;`
-* `TRUNCATE stocks;`
 
 
