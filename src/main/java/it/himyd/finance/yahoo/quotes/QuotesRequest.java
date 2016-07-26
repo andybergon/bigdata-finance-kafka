@@ -78,7 +78,7 @@ public abstract class QuotesRequest<T> {
         String url = YahooFinance.QUOTES_BASE_URL + "?" + Utils.getURLParameters(params);
 
         // Get CSV from Yahoo
-        YahooFinance.logger.log(Level.INFO, ("Sending request: " + url));
+        // YahooFinance.logger.log(Level.INFO, ("Sending request: " + url));
 
         URL request = new URL(url);
         URLConnection connection = request.openConnection();
@@ -90,7 +90,7 @@ public abstract class QuotesRequest<T> {
             if (line.equals("Missing Symbols List.")) {
                 YahooFinance.logger.log(Level.SEVERE, "The requested symbol was not recognized by Yahoo Finance");
             } else {
-                YahooFinance.logger.log(Level.INFO, ("Parsing CSV line: " + Utils.unescape(line)));
+                // YahooFinance.logger.log(Level.INFO, ("Parsing CSV line: " + Utils.unescape(line)));
 
                 T data = this.parseCSVLine(line);
                 result.add(data);

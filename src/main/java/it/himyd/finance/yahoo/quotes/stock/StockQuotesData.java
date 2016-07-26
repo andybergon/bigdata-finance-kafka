@@ -103,8 +103,9 @@ public class StockQuotesData {
         stock.setStockExchange(this.getValue(QuotesProperty.StockExchange));
         
         stock.setQuote(this.getQuote());
-        stock.setStats(this.getStats());
-        stock.setDividend(this.getDividend());
+        // TODO: reimplement unusued data, correct BigInteger NaN Exception
+        // stock.setStats(this.getStats());
+        // stock.setDividend(this.getDividend());
         
         return stock;
     }
