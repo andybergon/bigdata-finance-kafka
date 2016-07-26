@@ -19,6 +19,8 @@ from `target/` folder:
 * `mvn install -f ../pom.xml`
 
 ### Run JAR
+java -cp /home/luca/git/bigdata-finance-kafka/target/finance-kafka-from-yahoo-0.0.1-SNAPSHOT-jar-with-dependencies.jar it.himyd.kafka.StockProducer localhost:9092 stock_topic 1000
+
 * <code>`java -cp finance-kafka-from-yahoo-0.0.1-SNAPSHOT-jar-with-dependencies.jar it.himyd.kafka.StockProducer localhost:9092 stock_topic 1000`</code>
 	* <code>`java -cp finance-kafka-from-yahoo-0.0.1-SNAPSHOT-jar-with-dependencies.jar <producer-class-file> <kafka-broker> <topics-seperated-by-comma> <request-delay-ms>`</code>
 
