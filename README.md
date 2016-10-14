@@ -1,4 +1,5 @@
 # finance-yahoo-to-kafka
+Andrea Bergonzo & [Luca Massuda] (https://github.com/Massuda)
 
 ## Installation
 
